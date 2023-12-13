@@ -1,0 +1,3 @@
+_target_: src.models.ml1m.components.resnet34.Resnet34
+
+n_classes: 18

@@ -1,0 +1,6 @@
+wandb_callback:
+  _target_: src.utils.callback.wandb_ml1m.WandbCallback_Ml1m
+  image_id: "1377.jpg"
+  data_path: content/dataset
+  img_size: 256
+  n_images_to_log: 5

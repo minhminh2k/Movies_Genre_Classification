@@ -17,6 +17,7 @@ class Ml1mDataModule(LightningDataModule):
     def __init__(
         self,
         data_dir: str = "content/dataset",
+        data_type: str = "img",
         train_val_test_split: Tuple[int, int, int] = (0.8, 0.1, 0.1),
         transform_train: Optional[A.Compose] = None,
         transform_val: Optional[A.Compose] = None,

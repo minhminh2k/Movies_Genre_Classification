@@ -1,0 +1,12 @@
+_target_: src.data.ml1m.ml1m_datamodule.Ml1mDataModule
+
+defaults:
+  - transform_train: ml1m.yaml
+  - transform_val: ml1m.yaml
+
+data_dir: content/dataset
+batch_size: 4
+train_val_test_split: [0.8, 0.1, 0.1]
+num_workers: 2
+pin_memory: False
+data_type: img

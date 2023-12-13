@@ -1,0 +1,3 @@
+_target_: src.models.ml1m.components.resnet101.Resnet101
+
+n_classes: 18

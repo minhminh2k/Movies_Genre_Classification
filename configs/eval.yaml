@@ -2,17 +2,19 @@
 
 defaults:
   - _self_
-  - data: mnist.yaml # choose datamodule with `test_dataloader()` for evaluation
-  - model: mnist.yaml
-  - logger: null
-  - trainer: default.yaml
+  - data: m1lm.yaml # choose datamodule with `test_dataloader()` for evaluation
+  - model: m1lm.yaml
+  - callbacks: ml1m.yaml
+  - logger: wandb
+  - trainer: gpu.yaml
   - paths: default.yaml
   - extras: default.yaml
   - hydra: default.yaml
+  - experiment: null
 
 task_name: "eval"
 
 tags: ["dev"]
 
 # passing checkpoint path is necessary for evaluation
-ckpt_path: ???
+ckpt_path: null
