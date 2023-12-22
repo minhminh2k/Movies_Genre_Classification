@@ -13,9 +13,6 @@ from PIL import Image
 from pytorch_lightning.callbacks import Callback
 from torchvision.utils import make_grid
 
-from src.utils.airbus_utils import mask_overlay, masks_as_image
-
-
 class WandbCallback_Ml1m(Callback):
     def __init__(
         self,

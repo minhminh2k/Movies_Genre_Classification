@@ -90,10 +90,10 @@ if __name__ == "__main__":
     print(img.shape) # 445, 300, 3
     # print(genre.shape) # (18,)
     
-    abc = Subset(ml1m, range(3106, 3200))
+    abc = Subset(ml1m, range(3106, 3883))
     x, _ = abc[1]
     y, _ = abc[2]
     print(x.shape)
     print(y.shape)
-    # print(len(abc)) # 350
+    print(len(abc)) # 777
     

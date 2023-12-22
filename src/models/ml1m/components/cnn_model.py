@@ -18,7 +18,7 @@ import numpy as np
 from torchvision import transforms
 
 class CNNModel(nn.Module):
-    def __init__(self, n_classes=18, len_vocab=3899, embedding_dimension=3898, hidden_size=64, n_length=7):
+    def __init__(self, n_classes=18, len_vocab=3072, embedding_dimension=3898, hidden_size=64, n_length=4):
         super(CNNModel, self).__init__()
         self.hidden_size = hidden_size
         
@@ -38,7 +38,7 @@ class CNNModel(nn.Module):
         self.fc1 = nn.Linear(64 * 64 * 64, 512)
         self.relu5 = nn.ReLU()
         self.dropout = nn.Dropout(0.25)
-        self.fc2 = nn.Linear(512, hidden_size)
+        self.fc2 = nn.Linear(512, hidden_size * 2)
         
         self.sigm = nn.Sigmoid()
         
@@ -48,7 +48,7 @@ class CNNModel(nn.Module):
         self.fc3 = nn.Linear(n_length * len_vocab, 512)
         self.fc4 = nn.Linear(512, hidden_size)
         # Combine
-        self.fc5 = nn.Linear(hidden_size * 2, n_classes)
+        self.fc5 = nn.Linear(hidden_size * 3, n_classes)
 
     def forward(self, text_tens, img_tens):
         text_feat = self.fc3(self.flatten(text_tens))
@@ -70,8 +70,8 @@ class CNNModel(nn.Module):
     
 if __name__ == "__main__":
     y = torch.rand((1, 3, 256, 256))
-    x = torch.rand((1, 7, 3899))
-    model = CNNModel(n_classes = 18, len_vocab=3899, embedding_dimension=3898, hidden_size=64, n_length=7)
+    x = torch.rand((1, 4, 3072))
+    model = CNNModel(n_classes = 18, len_vocab=3072, embedding_dimension=3898, hidden_size=64, n_length=4)
     print(model(x, y).shape) # torch.Size([1, 18])
     print(model(x, y).min())
     print(model(x, y).max())

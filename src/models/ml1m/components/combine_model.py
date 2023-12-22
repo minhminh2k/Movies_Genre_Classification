@@ -17,9 +17,9 @@ import pandas as pd
 import numpy as np
 from torchvision import transforms
 
-class CombinedModel(nn.Module):
-    def __init__(self, n_classes, len_vocab=3899, embedding_dimension=3898, hidden_size=64, n_length=7, arch="resnet101"):
-        super(CombinedModel, self).__init__()
+class CombineModel(nn.Module):
+    def __init__(self, n_classes, len_vocab=3072, embedding_dimension=3898, hidden_size=64, n_length=4, arch="resnet101"):
+        super(CombineModel, self).__init__()
         self.hidden_size = hidden_size
         
         self.arch = arch
@@ -34,7 +34,7 @@ class CombinedModel(nn.Module):
         '''
         # Pretrained for image
         if self.arch == "resnet34":
-            self.rn = resnet34(weights=ResNet50_Weights.DEFAULT)
+            self.rn = resnet34(weights=ResNet34_Weights.DEFAULT)
             print("Using Resnet34")
         elif self.arch == "resnet101":
             self.rn = resnet101(weights=ResNet101_Weights.DEFAULT)
@@ -46,7 +46,7 @@ class CombinedModel(nn.Module):
             self.rn = vgg16(weights=VGG16_Weights.DEFAULT)
             print("Using VGG16")
         
-        self.last_layer = torch.nn.Linear(1000, hidden_size)
+        self.last_layer = torch.nn.Linear(1000, hidden_size * 2)
         
         self.sigm = nn.Sigmoid()
         
@@ -56,7 +56,7 @@ class CombinedModel(nn.Module):
         self.fc2 = nn.Linear(n_length * len_vocab, hidden_size)
 
         # Combine
-        self.fc3 = nn.Linear(hidden_size * 2, n_classes)
+        self.fc3 = nn.Linear(hidden_size * 3, n_classes)
 
     def forward(self, text_tens, img_tens):
         text_feat = self.fc2(self.flatten(text_tens))
@@ -74,8 +74,8 @@ class CombinedModel(nn.Module):
     
 if __name__ == "__main__":
     y = torch.rand((1, 3, 256, 256))
-    x = torch.rand((1, 7, 3899))
-    model = CombinedModel(n_classes = 18, len_vocab=3899, embedding_dimension=3898, hidden_size=64, n_length=7, arch="resnet101")
+    x = torch.rand((1, 4, 3072))
+    model = CombineModel(n_classes = 18, len_vocab=3072, embedding_dimension=3898, hidden_size=64, n_length=4, arch="resnet101")
     print(model(x, y).shape) # torch.Size([1, 18])
     print(model(x, y).min())
     print(model(x, y).max())

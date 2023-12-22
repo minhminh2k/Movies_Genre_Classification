@@ -1,0 +1,6 @@
+_target_: src.models.ml1m.components.cnn_model.CNNModel
+
+n_classes: 18
+len_vocab: 3072
+n_length: 4
+hidden_size: 64

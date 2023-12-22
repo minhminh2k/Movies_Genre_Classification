@@ -43,4 +43,3 @@ if __name__ == "__main__":
     print(model(x).shape) # [1, 18]
     print(model(x).max()) # [1, 18]
     print(model(x).min()) # [1, 18]
-    

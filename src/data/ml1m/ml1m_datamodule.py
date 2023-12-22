@@ -8,8 +8,8 @@ from torch.utils.data import DataLoader, Dataset, Subset, random_split
 
 from data.ml1m.components.ml1m import Ml1mDataset
 from data.ml1m.components.transform_ml1m import TransformMl1m
-from data.airbus.components.transform_airbus import TransformAirbus
-from src.utils.airbus_utils import imshow_batch
+from data.ml1m.components.ml1m_combine import Ml1mCombineDataset
+from data.ml1m.components.transform_ml1m_combine import TransformMl1mCombine
 
 
 class Ml1mDataModule(LightningDataModule):
@@ -21,6 +21,7 @@ class Ml1mDataModule(LightningDataModule):
         train_val_test_split: Tuple[int, int, int] = (0.8, 0.1, 0.1),
         transform_train: Optional[A.Compose] = None,
         transform_val: Optional[A.Compose] = None,
+        n_length: int = 4,
         batch_size: int = 64,
         num_workers: int = 0,
         pin_memory: bool = False,
@@ -34,50 +35,73 @@ class Ml1mDataModule(LightningDataModule):
         self.data_train: Optional[Dataset] = None
         self.data_val: Optional[Dataset] = None
         self.data_test: Optional[Dataset] = None
+        
 
     def setup(self, visualize_dist=False, stage: Optional[str] = None):
         if not self.data_train and not self.data_val and not self.data_test:
-            dataset = Ml1mDataset(
-                data_dir=self.hparams.data_dir,
-            )
-            # Try catch block for stratified splits
-            data_len = len(dataset)
-            dframe = dataset.data
-            '''
-            train_len = int(data_len * self.hparams.train_val_test_split[0])
-            val_len = int(data_len * self.hparams.train_val_test_split[1])
-            test_len = data_len - train_len - val_len
+            if self.hparams.data_type == "img":
+                dataset = Ml1mDataset(
+                    data_dir=self.hparams.data_dir,
+                )
+                # Try catch block for stratified splits
+                data_len = len(dataset)
+                dframe = dataset.data
+                '''
+                train_len = int(data_len * self.hparams.train_val_test_split[0])
+                val_len = int(data_len * self.hparams.train_val_test_split[1])
+                test_len = data_len - train_len - val_len
 
-            self.data_train, self.data_val, self.data_test = random_split(
-                dataset=dataset,
-                lengths=[train_len, val_len, test_len],
-                generator=torch.Generator().manual_seed(42),
-            )
+                self.data_train, self.data_val, self.data_test = random_split(
+                    dataset=dataset,
+                    lengths=[train_len, val_len, test_len],
+                    generator=torch.Generator().manual_seed(42),
+                )
 
-            print("Using random_split.")
-            '''
-        
-            data_train_val = Subset(dataset, range(0, 3106))
-            train_val_len = len(data_train_val)
-            train_len = int(train_val_len * 0.9)
-            val_len = train_val_len - train_len
+                print("Using random_split.")
+                '''
             
-            self.data_train, self.data_val = random_split(
-                dataset=data_train_val,
-                lengths=[train_len, val_len],
-                generator=torch.Generator().manual_seed(42),
-            )
-           
-            self.data_test = Subset(dataset, range(3106, 3883))
+                data_train_val = Subset(dataset, range(0, 3106))
+                train_val_len = len(data_train_val)
+                train_len = int(train_val_len * 0.9)
+                val_len = train_val_len - train_len
+                
+                self.data_train, self.data_val = random_split(
+                    dataset=data_train_val,
+                    lengths=[train_len, val_len],
+                    generator=torch.Generator().manual_seed(42),
+                )
             
-            # create transform dataset from subset
-            self.data_train = TransformMl1m(self.data_train, self.hparams.transform_train)
-            self.data_val = TransformMl1m(self.data_val, self.hparams.transform_val)
-            self.data_test = TransformMl1m(self.data_test, self.hparams.transform_val)
+                self.data_test = Subset(dataset, range(3106, 3883))
+                
+                # create transform dataset from subset
+                self.data_train = TransformMl1m(self.data_train, self.hparams.transform_train)
+                self.data_val = TransformMl1m(self.data_val, self.hparams.transform_val)
+                self.data_test = TransformMl1m(self.data_test, self.hparams.transform_val)
             
-            # print(len(self.data_train))
-            # print(len(self.data_val))
-            # print(len(self.data_test))
+            elif self.hparams.data_type == "combine":
+                dataset = Ml1mCombineDataset(
+                    data_dir=self.hparams.data_dir,
+                    n_length=self.hparams.n_length,
+                )
+                data_len = len(dataset)
+                dframe = dataset.data
+                data_train_val = Subset(dataset, range(0, 3106))
+                train_val_len = len(data_train_val)
+                train_len = int(train_val_len * 0.9)
+                val_len = train_val_len - train_len
+                
+                self.data_train, self.data_val = random_split(
+                    dataset=data_train_val,
+                    lengths=[train_len, val_len],
+                    generator=torch.Generator().manual_seed(42),
+                )
+            
+                self.data_test = Subset(dataset, range(3106, 3883))
+                
+                # create transform dataset from subset
+                self.data_train = TransformMl1mCombine(self.data_train, self.hparams.transform_train)
+                self.data_val = TransformMl1mCombine(self.data_val, self.hparams.transform_val)
+                self.data_test = TransformMl1mCombine(self.data_test, self.hparams.transform_val)
         
     def train_dataloader(self):
         return DataLoader(

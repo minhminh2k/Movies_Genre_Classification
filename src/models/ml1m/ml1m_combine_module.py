@@ -14,7 +14,8 @@ from torchmetrics.classification import MultilabelPrecision
 from torchmetrics.classification import MultilabelRecall
 
 
-class Ml1mLitModule(LightningModule):
+
+class Ml1mCombineLitModule(LightningModule):
     def __init__(
         self,
         net: torch.nn.Module,
@@ -67,8 +68,8 @@ class Ml1mLitModule(LightningModule):
         self.val_metric_best_5 = MaxMetric()
         
 
-    def forward(self, x: torch.Tensor):
-        return self.net(x)
+    def forward(self, x: torch.Tensor, y: torch.Tensor):
+        return self.net(x, y)
 
     def on_train_start(self):
         # by default lightning executes validation step sanity checks before training starts,
@@ -86,9 +87,9 @@ class Ml1mLitModule(LightningModule):
         self.val_metric_best_5.reset()
         
     def model_step(self, batch: Any):
-        x, y = batch
+        x, text, y = batch[0], batch[1], batch[2]
         
-        preds = self.forward(x)
+        preds = self.forward(text, x)
         loss = self.criterion(preds, y)
         
         # Code to try to fix CUDA out of memory issues

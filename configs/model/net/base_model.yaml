@@ -1,0 +1,6 @@
+_target_: src.models.ml1m.components.base_model.BaseModel
+
+n_classes: 18
+len_vocab: 3544
+n_length: 7
+hidden_size: 64
