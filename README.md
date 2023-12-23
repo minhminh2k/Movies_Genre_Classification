@@ -1,8 +1,21 @@
 
-# Movies Genre Classification
+# Movies Genres Multi-Label Classification
 Welcome to the MOVIES GENRE CLASSIFICATION repository. This project provides an easy-to-use framework of the classification model for Movies Genre.
-## Requirements
-All the dependencies can be installed using the provided requirements.txt file.
+
+## Members
+- Dương Quang Minh - 21020219
+- Lê Văn Bảo - 21020171
+- Tống Minh Trí - 21020249
+
+## Description
+Final Project for Machine Learning Class INT3405E 21
+
+This repo was made by UET-VNU students
+
+Topic: Movies Genres Multi-Label Classification using Poster or Combine Poster and Movie title
+
+Main Technologies: PyTorch, Lightning, Hydra, WanDB
+
 ## Installation
 1. Clone the repository:
    ```
@@ -71,7 +84,8 @@ python src/train.py
    python src/train.py 
     ```
         
-## Results: ["Wandb"](https://wandb.ai/minhqd9112003/movielens?workspace=user-minhqd9112003).
+## Results: 
+- [Wandb](https://wandb.ai/minhqd9112003/movielens?workspace=user-minhqd9112003).
 
 
 
