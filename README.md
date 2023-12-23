@@ -71,6 +71,7 @@ python src/train.py
    python src/train.py 
     ```
         
+## Results: ["Wandb"](https://wandb.ai/minhqd9112003/movielens?workspace=user-minhqd9112003).
 
 
 
