@@ -12,7 +12,7 @@ Final Project for Machine Learning Class INT3405E 21
 
 This repo was made by UET-VNU students
 
-Topic: Movies Genres Multi-Label Classification using Poster or Combine Poster and Movie title
+Topic: Movies Genres Multi-Label Classification using poster or combining poster and movie title
 
 Main Technologies: PyTorch, Lightning, Hydra, WanDB
 
@@ -75,7 +75,10 @@ python src/train.py
 4. Modify config file:  
    ```bash
    Dataset: ./configs/data/{your_dataset}.yaml
-   ``` 
+   ```
+   ```bash
+   Model: ./configs/model/{your_model}.yaml
+   ```
    ```bash
    Training: ./configs/train.yaml
    ```
