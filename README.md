@@ -85,7 +85,7 @@ python src/train.py
     ```
         
 ## Results: 
-- [Wandb](https://wandb.ai/minhqd9112003/movielens?workspace=user-minhqd9112003).
-- [Google Colab](https://colab.research.google.com/drive/1RMRjzu_gKKmLiTXc69HBZ7yJf4tJrq57?usp=sharing)
+- Models using poster or combining poster and title as input: [Wandb](https://wandb.ai/minhqd9112003/movielens?workspace=user-minhqd9112003).
+- Models using movie title as input, the result of BaseModel, the result of combined model using LSTM for text and CNN for poster: [Google Colab](https://colab.research.google.com/drive/1RMRjzu_gKKmLiTXc69HBZ7yJf4tJrq57?usp=sharing)
 
 
