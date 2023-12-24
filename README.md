@@ -86,6 +86,6 @@ python src/train.py
         
 ## Results: 
 - [Wandb](https://wandb.ai/minhqd9112003/movielens?workspace=user-minhqd9112003).
-
+- [Google Colab](https://colab.research.google.com/drive/1RMRjzu_gKKmLiTXc69HBZ7yJf4tJrq57?usp=sharing)
 
 

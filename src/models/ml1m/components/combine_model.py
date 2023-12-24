@@ -9,6 +9,11 @@ from torchvision.models import (
     resnet101,
     resnext50_32x4d,
     vgg16,
+    VisionTransformer,
+    ViT_L_32_Weights,
+    vit_l_32,
+    MobileNet_V2_Weights,
+    mobilenet_v2,
 )
 import torch
 from torch import nn
@@ -45,7 +50,13 @@ class CombineModel(nn.Module):
         elif self.arch == "vgg16":
             self.rn = vgg16(weights=VGG16_Weights.DEFAULT)
             print("Using VGG16")
-        
+        elif self.arch == "vit":
+            self.rn = vit_l_32(weights=ViT_L_32_Weights.DEFAULT)
+            print("Using Vision Transformer")
+        elif self.arch == "mobile":
+            self.rn = mobilenet_v2(weights=MobileNet_V2_Weights.DEFAULT)
+            print("Using Mobile Net")
+            
         self.last_layer = torch.nn.Linear(1000, hidden_size * 2)
         
         self.sigm = nn.Sigmoid()

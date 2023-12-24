@@ -17,9 +17,9 @@ import pandas as pd
 import numpy as np
 from torchvision import transforms
 
-class CNNModel(nn.Module):
+class CNNCombine(nn.Module):
     def __init__(self, n_classes=18, len_vocab=3072, embedding_dimension=3898, hidden_size=64, n_length=4):
-        super(CNNModel, self).__init__()
+        super(CNNCombine, self).__init__()
         self.hidden_size = hidden_size
         
         # Image
@@ -71,7 +71,7 @@ class CNNModel(nn.Module):
 if __name__ == "__main__":
     y = torch.rand((1, 3, 256, 256))
     x = torch.rand((1, 4, 3072))
-    model = CNNModel(n_classes = 18, len_vocab=3072, embedding_dimension=3898, hidden_size=64, n_length=4)
+    model = CNNCombine(n_classes = 18, len_vocab=3072, embedding_dimension=3898, hidden_size=64, n_length=4)
     print(model(x, y).shape) # torch.Size([1, 18])
     print(model(x, y).min())
     print(model(x, y).max())

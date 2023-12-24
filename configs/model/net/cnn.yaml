@@ -1,0 +1,3 @@
+_target_: src.models.ml1m.components.cnn.CustomCNN
+
+n_classes: 18

@@ -1,0 +1,3 @@
+_target_: src.models.ml1m.components.vit.VisionTrans
+
+n_classes: 18

@@ -1,9 +1,9 @@
 import torch
 import torch.nn as nn
 
-class CustomModel(nn.Module):
+class CustomCNN(nn.Module):
     def __init__(self, n_classes=18):
-        super(CustomModel, self).__init__()
+        super(CustomCNN, self).__init__()
 
         self.conv1 = nn.Conv2d(3, 32, kernel_size=3, stride=1, padding=1)
         self.relu1 = nn.ReLU()
@@ -39,7 +39,7 @@ class CustomModel(nn.Module):
 
 if __name__ == "__main__":
     x = torch.rand((1, 3, 256, 256))
-    model = CustomModel(n_classes = 18)
+    model = CustomCNN(n_classes = 18)
     print(model(x).shape) # [1, 18]
     print(model(x).max()) # [1, 18]
     print(model(x).min()) # [1, 18]
