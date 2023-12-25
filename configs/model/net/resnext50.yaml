@@ -1,3 +1,0 @@
-_target_: src.models.ml1m.components.resnext50.Resnext50
-
-n_classes: 18

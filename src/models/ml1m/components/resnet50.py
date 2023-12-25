@@ -1,13 +1,21 @@
+from torchvision.models import (
+    ResNet34_Weights,
+    ResNet101_Weights,
+    ResNet50_Weights,
+    resnet34,
+    resnet50,
+    resnet101,
+)
 import torch
 from torch import nn
 from torchvision import models
 import pandas as pd
 import numpy as np
 
-resnext50 = models.resnext50_32x4d(weights=models.ResNeXt50_32X4D_Weights.DEFAULT)
+res50 = models.resnet50(weights=models.ResNet50_Weights.DEFAULT)
 
-class Resnext50(nn.Module):
-    def __init__(self, resnext=resnext50, n_classes=18):
+class Resnet50(nn.Module):
+    def __init__(self, resnext=res50, n_classes=18):
         super().__init__()
         resnet = resnext
         resnet.fc = nn.Sequential(
@@ -23,7 +31,7 @@ class Resnext50(nn.Module):
         
 if __name__ == "__main__":
     x = torch.rand((1, 3, 256, 256))
-    model = Resnext50(n_classes = 18)
+    model = Resnet50(n_classes = 18)
     print(model(x).shape)
     print(model(x).min())  # 'torch.Size([1, 1, 256, 256])
     print(model(x).max())

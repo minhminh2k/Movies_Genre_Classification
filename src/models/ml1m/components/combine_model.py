@@ -44,9 +44,9 @@ class CombineModel(nn.Module):
         elif self.arch == "resnet101":
             self.rn = resnet101(weights=ResNet101_Weights.DEFAULT)
             print("Using Resnet101")
-        elif self.arch == "resnext50":
-            self.rn = resnext50_32x4d(weights=ResNeXt50_32X4D_Weights.DEFAULT)
-            print("Using Resnext50")
+        elif self.arch == "resnet50":
+            self.rn = resnet50(weights=ResNet50_Weights.DEFAULT)
+            print("Using Resnet50")
         elif self.arch == "vgg16":
             self.rn = vgg16(weights=VGG16_Weights.DEFAULT)
             print("Using VGG16")
