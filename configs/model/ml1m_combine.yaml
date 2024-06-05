@@ -1,6 +1,6 @@
 _target_: src.models.ml1m.ml1m_combine_module.Ml1mCombineLitModule
 defaults:
-  - net: cnn_combine.yaml
+  - net: combine_bert.yaml
 
 optimizer:
   _target_: torch.optim.Adam

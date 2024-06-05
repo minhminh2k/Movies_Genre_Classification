@@ -10,6 +10,7 @@ from data.ml1m.components.ml1m import Ml1mDataset
 from data.ml1m.components.transform_ml1m import TransformMl1m
 from data.ml1m.components.ml1m_combine import Ml1mCombineDataset
 from data.ml1m.components.transform_ml1m_combine import TransformMl1mCombine
+from data.ml1m.components.ml1m_token import Ml1mCombineToken
 
 
 class Ml1mDataModule(LightningDataModule):
@@ -79,7 +80,7 @@ class Ml1mDataModule(LightningDataModule):
                 self.data_test = TransformMl1m(self.data_test, self.hparams.transform_val)
             
             elif self.hparams.data_type == "combine":
-                dataset = Ml1mCombineDataset(
+                dataset = Ml1mCombineToken(
                     data_dir=self.hparams.data_dir,
                     n_length=self.hparams.n_length,
                 )
@@ -98,10 +99,10 @@ class Ml1mDataModule(LightningDataModule):
             
                 self.data_test = Subset(dataset, range(3106, 3883))
                 
-                # create transform dataset from subset
-                self.data_train = TransformMl1mCombine(self.data_train, self.hparams.transform_train)
-                self.data_val = TransformMl1mCombine(self.data_val, self.hparams.transform_val)
-                self.data_test = TransformMl1mCombine(self.data_test, self.hparams.transform_val)
+                # # create transform dataset from subset
+                # self.data_train = TransformMl1mCombine(self.data_train, self.hparams.transform_train)
+                # self.data_val = TransformMl1mCombine(self.data_val, self.hparams.transform_val)
+                # self.data_test = TransformMl1mCombine(self.data_test, self.hparams.transform_val)
         
     def train_dataloader(self):
         return DataLoader(

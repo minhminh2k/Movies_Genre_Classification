@@ -9,6 +9,7 @@ from data.ml1m.components.ml1m import Ml1mDataset
 
 import torch
 
+
 class TransformMl1m(Dataset):
     mean = None
     std = None
@@ -42,9 +43,11 @@ class TransformMl1m(Dataset):
             genre = torch.from_numpy(genre)
             genre = genre.float()#.unsqueeze(0)  # (1, img_size, img_size)
 
-        return image, genre
+        return image, genre 
+    
     
 if __name__ == "__main__":
+    
     ml1m = TransformMl1m(Ml1mDataset())
     img, genre = ml1m[2]
     print(img.shape) # 3, 445, 300
